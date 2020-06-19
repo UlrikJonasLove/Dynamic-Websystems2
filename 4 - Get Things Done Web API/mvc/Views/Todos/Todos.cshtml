@@ -1,0 +1,88 @@
+﻿@model IEnumerable<TodoModel>
+
+@{
+    ViewData["Title"] = "Todos";
+    var list = Model.ToList();
+    var path = Context.Request.Path.Value.ToString().ToLower();
+    bool myList = path.IndexOf("member") == -1;
+    bool searchResult = path.IndexOf("search") != -1;
+    var user = User.Identity.Name;
+}
+
+
+<div class="btn-group">
+
+    @if (!searchResult)
+    {
+        <a class ="btn btn-secondary"href="/Todos/member">Inbjudna medlemmar</a>
+    }
+    else
+    {
+        <a href="#" class="active">Sök</a>
+    }
+
+
+    @if (myList && !searchResult)
+    {
+        <a class="btn btn-secondary" href="/NewTodo">Lägg till Uppgift</a>
+    }
+</div>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Nr</th>
+            <th scope="col">Namn</th>
+            <th scope="col" width="350">Vad vill du göra?</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            int ind = 1;
+            foreach (var m in Model)
+            {
+
+                var editLink = "'/EditTodo/" + m.Id + "'";
+                var viewLink = "'/ViewTodo/" + m.Id + "'";
+                var doneLink = "'DoneTodo/" + m.Id + "'";
+                var inviteLink = "'/InviteUsersToTodo/" + m.Id + "'";
+                var deleteLink = "'DeleteTodo/" + m.Id + "'";
+
+                <tr>
+                    <th scope="row">@ind</th>
+                    <td>@m.Name</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary" onclick="location.href = @viewLink">Din Todo</button>
+                        @if (myList || (searchResult && user == m.Author.Id))
+                        {
+                            if (!m.IsComplete)
+                            {
+                                <button class="btn btn-primary" onclick="return putData(@doneLink)">Klar?</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-lg btn-success">Klar</button>
+                            }
+                            <button class="btn btn-secondary" onclick="location.href = @editLink">Redigera</button>
+                            <button class="btn btn-secondary" onclick="location.href = @inviteLink">Bjud in</button>
+                            <button class="btn btn-secondary" onclick="return deleteData(@deleteLink)">Radera</button>
+                        }
+                        else
+                        {
+                            var userId = m.Members.FirstOrDefault(x => x.UserName == user).Id;
+                            var deleteUserFromTodo = "'DeleteUserFromTodo/" + m.Id + "?userId=" + userId + "'";
+                            <button class="btn btn-secondary" onclick="return deleteData(@deleteUserFromTodo)">Ta bort användare</button>
+                        }
+                    </td>
+                </tr>
+                ind += 1;
+            }
+        }
+    </tbody>
+</table>
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-light">Tomt</div>
+}

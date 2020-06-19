@@ -1,0 +1,45 @@
+﻿@model Tuple<List<User>, TodoModel>
+
+@{
+    ViewData["Title"] = "Användare";
+    var members = Model.Item2.Members.ToList();
+    var user = User.Identity.Name;
+}
+
+    <a class="btn btn-secondary" href="#" onclick="history.back()">Tillbaka</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Anvädarnamn</th>
+            <th scope="col" width="150">Hantera</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            int ind = 1;
+            foreach (var m in Model.Item1.Where(x => x.UserName != user))
+            {
+                var inviteLink = "'InviteUserToTodo/" + Model.Item2.Id + "?userId=" + m.Id + "'";
+                var deleteLink = "'DeleteUserFromTodo/" + Model.Item2.Id + "?userId=" + m.Id + "'";
+                <tr>
+                    <th scope="row">@ind</th>
+                    <td>@m.UserName</td>
+                    <td class="text-center">
+                        @if (members.Count > 0 && members.FirstOrDefault(x => x.Id == m.Id) != null)
+                        {
+                            <button class="btn btn-danger" onclick="return deleteData(@deleteLink)">Radera</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-success" onclick="return putData(@inviteLink)">Bjud in</button>
+                        }
+                    </td>
+                </tr>
+                ind += 1;
+            }
+        }
+    </tbody>
+</table>

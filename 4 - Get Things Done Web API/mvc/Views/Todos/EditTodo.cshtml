@@ -1,0 +1,25 @@
+﻿@model TodoModel
+@{
+    ViewData["Title"] = "Redigera uppgift";
+}
+
+    <a class="btn btn-secondary" href="#" onclick="history.back()">Tillbaka</a>
+
+<form class="form-block" onsubmit="return editData(this, 'EditTodo')">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" value="@Model.Name">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" value="@Model.Description"></textarea>
+    </div>
+
+
+    <div class="form-group text-right">
+        <input type="submit" class="btn btn-secondary" value="Skicka" />
+    </div>
+</form>
+

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Hackaton 2019</title>
+    <!--script-->
+    <!--SMOOOTHSCROLL-->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</head>
+<body data-spy="scroll">
+    <div class="container">
+        <!--BOOTSTRAP JUMBOTRON-->
+        <div class="jumbotron">
+            <h1 class="display-4">Hello, Hackaton 2020!</h1>
+            <p class="lead">This is a representation of how NASA API works in order to show photos their rovers took while they were on the Mars exploration mission </p>
+            <img src="img/nasa.png" class="nasa-img">
+
+            <button type="button" class="btn btn-primary" onclick="switchData()" id="switch">Rovers lista</button>
+        </div>
+        <!--BOOTSTRAP ROW DELAD I 3 DELAR(COLUMNS col-md-4) med 3 knappar som har onclick "FETCH bilderna" funktion -->
+        <main class="row" id="images">
+            <div class="col-md-4">
+                <!--ROVER CURIOSITY-->
+                <button style="width: 100%;" type="submit" onclick="getImages('curiosity')" class="btn btn-success">Rover Curiosity</button>
+            </div>
+            <div class="col-md-4">
+                 <!--ROVER SPIRIT-->
+                <button type="submit" style="width: 100%;" onclick="getImages('spirit')" class="btn btn-danger">Rover Spirit</button>
+            </div>
+            <div class="col-md-4">
+                 <!--ROVER OPPORTUNITY-->
+                <button type="submit" id="Rover3" style="width: 100%;" onclick="getImages('opportunity')" class="btn btn-info">Rover Opportunity</button>
+            </div>
+            <div class="clearfix"></div>
+            <br/>
+            <div class="container">
+                <div class="row" id="row">
+                </div>
+            </div>
+        </main>
+
+        <!--Rovers block-->
+        <main id="rovers">
+            <div class="jumbotron">
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers" role="button">All Rovers</a>
+                <p>Get rovers by rover Id</p>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/1" role="button">The First Rover</a>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/2" role="button">The Second Rover</a>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/3" role="button">The Third Rover</a>
+                <p>Get rovers by category Id</p>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/category/1" role="button">The First Rover</a>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/category/2" role="button">The Second Rover</a>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/category/3" role="button">The Third Rover</a>
+                <p>Get the second rover by speed</p>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/speed/1100" role="button">The Second Rover By Speed</a>
+                <p>Get all the rovers with four wheels</p>
+                <a class="btn btn-primary btn-lg" href="http://localhost:2200/rovers/wheels/4" role="button">The First Rover & The Third Rover, With Four Wheels</a>
+
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

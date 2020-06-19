@@ -1,0 +1,17 @@
+﻿@model TodoModel
+
+@{
+    ViewData["Title"] = "Uppgift - " + Model.Name;
+}
+
+<div class="btn-group">
+    <a class="btn btn-success" href="#">@Model.Name</a>
+    <a class="btn btn-secondary" href="/NewTodoTag/@Model.Id">Lägg till ny hashtag</a>
+    <a class="btn btn-secondary" href="#" onclick="history.back()">Tillbaka</a>
+</div>
+
+<div class="view-description">
+    @Model.Description
+</div>
+
+@await Component.InvokeAsync("TodoTags", new { id = Model.Id })
